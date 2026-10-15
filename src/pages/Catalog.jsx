@@ -21,15 +21,13 @@ export default function Catalog() {
   const [input, setInput] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Runs every time the search term or decade changes
   useEffect(() => {
-    let ignore = false; // prevents an old, slow response from overwriting a newer one
+    let ignore = false;
     const request = searchTerm ? searchMovies(searchTerm) : getVintageMovies(decade.from, decade.to);
 
     request
       .then((data) => {
         if (ignore) return;
-        // Only keep vintage films that have a poster
         const vintage = data.results.filter(
           (movie) => movie.poster_path && getYear(movie.release_date) < VINTAGE_CUTOFF
         );
@@ -47,7 +45,6 @@ export default function Catalog() {
     };
   }, [searchTerm, decade]);
 
-  // Show the loader and clear old errors before a new fetch starts
   function startLoading() {
     setLoading(true);
     setError(null);
@@ -56,13 +53,13 @@ export default function Catalog() {
   function handleSearch(e) {
     e.preventDefault();
     const term = input.trim();
-    if (term === searchTerm) return; // same search – nothing new to fetch
+    if (term === searchTerm) return;
     startLoading();
     setSearchTerm(term);
   }
 
   function handleDecade(selected) {
-    if (selected === decade && !searchTerm) return; // already showing this decade
+    if (selected === decade && !searchTerm) return; 
     startLoading();
     setDecade(selected);
     setSearchTerm('');

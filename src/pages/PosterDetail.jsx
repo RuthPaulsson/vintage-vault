@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { getMovie, getPrice, getYear, IMG_URL } from '../api/tmdb';
 import Loader from '../components/Loader';
 import ErrorMessage from '../components/ErrorMessage';
+import CartButton from '../components/CartButton';
 
 export default function PosterDetail() {
   const { id } = useParams(); // the :id part of the URL, e.g. /poster/238
@@ -58,6 +59,7 @@ export default function PosterDetail() {
         </ul>
 
         <p className="price">{getPrice(movie.release_date)} kr</p>
+        <CartButton movie={movie} />
       </div>
     </article>
   );
