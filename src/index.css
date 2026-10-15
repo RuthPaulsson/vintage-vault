@@ -48,6 +48,45 @@ main {
   width: 100%;
 }
 
+.detail {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+}
+
+.detail .back {
+  grid-column: 1 / -1;
+}
+
+.detail img {
+  width: 100%;
+}
+
+.year {
+  font-weight: normal;
+}
+
+.tagline {
+  font-style: italic;
+}
+
+.facts {
+  list-style: none;
+  padding: 0;
+  line-height: 1.8;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+@media (max-width: 600px) {
+  .detail {
+    grid-template-columns: 1fr;
+  }
+}
+
 .error {
   color: #a63d2a;
 }

@@ -25,8 +25,9 @@ export function searchMovies(searchTerm) {
   return get('/search/movie', { query: searchTerm });
 }
 
+// Fetches one film, including cast and crew, in a single request
 export function getMovie(id) {
-  return get(`/movie/${id}`);
+  return get(`/movie/${id}`, { append_to_response: 'credits' });
 }
 
 export function getYear(releaseDate) {
