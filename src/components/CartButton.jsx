@@ -1,9 +1,11 @@
 import { useCart } from '../context/CartContext';
 import { getPrice } from '../api/tmdb';
 
+// Add/remove button. I use it on both the poster cards and the detail page.
 export default function CartButton({ movie }) {
   const { addToCart, removeFromCart, isInCart } = useCart();
 
+  // If the poster is already in the cart, show a remove button instead
   if (isInCart(movie.id)) {
     return (
       <button className="cart-button remove" onClick={() => removeFromCart(movie.id)}>
@@ -12,6 +14,7 @@ export default function CartButton({ movie }) {
     );
   }
 
+  // I only save the info the cart page needs, not the whole movie object
   function handleAdd() {
     addToCart({
       id: movie.id,

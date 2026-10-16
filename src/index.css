@@ -1,4 +1,5 @@
-/* ---------- Colours & fonts ---------- */
+/* ===== Colors and fonts ===== */
+/* I put them in variables so I only have to change them in one place */
 :root {
   --paper: #f2e6d0;
   --paper-light: #faf3e3;
@@ -11,10 +12,10 @@
 
   --font-heading: 'Playfair Display', Georgia, serif;
   --font-body: 'Lora', Georgia, serif;
-  --font-type: 'Special Elite', 'Courier New', monospace;
+  --font-type: 'Special Elite', 'Courier New', monospace; /* typewriter font */
 }
 
-/* ---------- Base ---------- */
+/* ===== Base ===== */
 * {
   box-sizing: border-box;
 }
@@ -22,7 +23,7 @@
 body {
   margin: 0;
   background-color: var(--paper);
-  /* soft vignette that looks like old paper */
+  /* darker edges to make it look like old paper */
   background-image: radial-gradient(ellipse at center, transparent 50%, rgba(92, 70, 54, 0.15) 100%);
   background-attachment: fixed;
   color: var(--ink);
@@ -47,7 +48,7 @@ main {
   padding: 2rem 1.5rem 4rem;
 }
 
-/* ---------- Buttons ---------- */
+/* ===== Buttons ===== */
 button {
   font-family: var(--font-type);
   font-size: 0.9rem;
@@ -66,7 +67,7 @@ button:hover {
   border-color: var(--red-dark);
 }
 
-/* Secondary style: outlined (used for "Remove" buttons) */
+/* Remove buttons only have a border, so they look different from add buttons */
 .cart-button.remove,
 .cart-item button {
   background: transparent;
@@ -79,7 +80,7 @@ button:hover {
   color: var(--paper-light);
 }
 
-/* ---------- Navbar ---------- */
+/* ===== Navbar ===== */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -99,6 +100,7 @@ button:hover {
   text-decoration: none;
 }
 
+/* "Vault" in gold */
 .logo span {
   color: var(--gold);
 }
@@ -116,6 +118,7 @@ button:hover {
   color: var(--gold);
 }
 
+/* Round circle with the number of posters in the cart */
 .badge {
   background: var(--gold);
   color: var(--ink);
@@ -128,6 +131,7 @@ button:hover {
   font-size: 0.85rem;
 }
 
+/* ===== Catalog: heading, search and filters ===== */
 .hero {
   text-align: center;
   margin-bottom: 2rem;
@@ -144,7 +148,7 @@ button:hover {
 }
 
 .hero h1 {
-  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-size: clamp(2rem, 5vw, 3.2rem); /* smaller on small screens */
   margin: 0.5rem 0 0;
   font-style: italic;
   font-weight: 400;
@@ -179,6 +183,7 @@ button:hover {
   margin-bottom: 2rem;
 }
 
+/* Decade buttons with dashed border, like old cinema tickets */
 .filters button {
   background: var(--paper-light);
   color: var(--ink);
@@ -201,6 +206,8 @@ button:hover {
   text-align: center;
 }
 
+/* ===== Poster grid and cards ===== */
+/* auto-fill makes as many columns as fit on the screen */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
@@ -217,6 +224,7 @@ button:hover {
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
+/* Card moves up a little on hover */
 .card:hover {
   transform: translate(-2px, -2px);
   box-shadow: 6px 6px 0 var(--ink);
@@ -238,10 +246,12 @@ button:hover {
   margin: 0 0 0.75rem;
 }
 
+/* Pushes the button to the bottom so all buttons line up */
 .card .cart-button {
   margin-top: auto;
 }
 
+/* Sepia filter makes the posters look old */
 .card img,
 .detail img {
   width: 100%;
@@ -250,10 +260,13 @@ button:hover {
   transition: filter 0.3s;
 }
 
+/* Show the real colors on hover */
 .card:hover img {
   filter: none;
 }
 
+/* ===== Detail page ===== */
+/* Poster on the left, info on the right */
 .detail {
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -261,6 +274,7 @@ button:hover {
   align-items: start;
 }
 
+/* Back link goes across both columns */
 .detail .back {
   grid-column: 1 / -1;
   font-family: var(--font-type);
@@ -302,6 +316,7 @@ button:hover {
   color: var(--ink-soft);
 }
 
+/* Price looks like a tilted price stamp */
 .price {
   display: inline-block;
   font-family: var(--font-type);
@@ -313,34 +328,7 @@ button:hover {
   margin-right: 1.5rem;
 }
 
-@media (max-width: 600px) {
-  .detail {
-    grid-template-columns: 1fr;
-  }
-
-  .navbar {
-    padding: 1rem;
-  }
-
-  .logo {
-    font-size: 1.3rem;
-  }
-
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-
-  .card {
-    padding: 0.5rem;
-  }
-
-  .card .cart-button {
-    font-size: 0.75rem;
-    padding: 0.4rem 0.5rem;
-  }
-}
-
+/* ===== Cart page ===== */
 .cart h1 {
   font-size: 2.5rem;
   border-bottom: 4px double var(--ink);
@@ -368,6 +356,7 @@ button:hover {
   box-shadow: 2px 2px 0 var(--ink);
 }
 
+/* flex: 1 takes up the free space, so price and button end up on the right */
 .cart-item-info {
   flex: 1;
   display: flex;
@@ -400,6 +389,7 @@ button:hover {
   color: var(--red);
 }
 
+/* ===== Loader and error ===== */
 .loader {
   display: flex;
   flex-direction: column;
@@ -409,6 +399,7 @@ button:hover {
   font-size: 1.2rem;
 }
 
+/* Film reel: a dark circle with 4 light holes, made with gradients, and it spins */
 .reel {
   width: 60px;
   height: 60px;
@@ -436,4 +427,35 @@ button:hover {
   border: 2px dashed var(--red);
   padding: 1rem;
   text-align: center;
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 600px) {
+  .navbar {
+    padding: 1rem;
+  }
+
+  .logo {
+    font-size: 1.3rem;
+  }
+
+  /* Two posters per row */
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .card {
+    padding: 0.5rem;
+  }
+
+  .card .cart-button {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.5rem;
+  }
+
+  /* Info goes under the poster instead of next to it */
+  .detail {
+    grid-template-columns: 1fr;
+  }
 }

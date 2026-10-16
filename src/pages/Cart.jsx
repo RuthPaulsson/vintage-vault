@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { IMG_URL, getYear } from '../api/tmdb';
 
+// The cart page ("My Vault")
 export default function Cart() {
   const { cart, removeFromCart, total } = useCart();
 
@@ -34,6 +35,7 @@ export default function Cart() {
         ))}
       </ul>
 
+      {/* "1 poster" or "2 posters" */}
       <p className="cart-total">
         Total ({cart.length} {cart.length === 1 ? 'poster' : 'posters'}): <strong>{total} kr</strong>
       </p>

@@ -4,6 +4,7 @@ import PosterCard from '../components/PosterCard';
 import Loader from '../components/Loader';
 import ErrorMessage from '../components/ErrorMessage';
 
+// The decade filter buttons
 const DECADES = [
   { label: 'All', from: 1920, to: 1999 },
   { label: '50s', from: 1950, to: 1959 },
@@ -13,21 +14,28 @@ const DECADES = [
   { label: '90s', from: 1990, to: 1999 },
 ];
 
+// Start page with all posters, search and filter
 export default function Catalog() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [decade, setDecade] = useState(DECADES[0]);
-  const [input, setInput] = useState('');
-  const [searchTerm, setSearchTerm] = useState('');
+  const [input, setInput] = useState(''); // what's typed in the search field
+  const [searchTerm, setSearchTerm] = useState(''); // what we actually search for (set when the form is submitted)
 
+  // Fetch movies when the search term or decade changes
   useEffect(() => {
+    // If the user clicks fast, an old request can finish after a new one.
+    // ignore makes sure only the latest result is shown.
     let ignore = false;
+
+    // Search if there is a search term, otherwise show the selected decade
     const request = searchTerm ? searchMovies(searchTerm) : getVintageMovies(decade.from, decade.to);
 
     request
       .then((data) => {
         if (ignore) return;
+        // Remove movies without a poster, and newer movies from the search results
         const vintage = data.results.filter(
           (movie) => movie.poster_path && getYear(movie.release_date) < VINTAGE_CUTOFF
         );
@@ -40,28 +48,31 @@ export default function Catalog() {
         if (!ignore) setLoading(false);
       });
 
+    // Cleanup: runs before the next fetch starts
     return () => {
       ignore = true;
     };
   }, [searchTerm, decade]);
 
+  // Shows the loader and clears old errors before a new fetch
   function startLoading() {
     setLoading(true);
     setError(null);
   }
 
   function handleSearch(e) {
-    e.preventDefault();
+    e.preventDefault(); // stops the page from reloading
     const term = input.trim();
-    if (term === searchTerm) return;
+    if (term === searchTerm) return; // same search as before, nothing to do
     startLoading();
     setSearchTerm(term);
   }
 
   function handleDecade(selected) {
-    if (selected === decade && !searchTerm) return; 
+    if (selected === decade && !searchTerm) return; // already showing this decade
     startLoading();
     setDecade(selected);
+    // Clear the search so the decade is shown
     setSearchTerm('');
     setInput('');
   }

@@ -9,6 +9,7 @@ export default function Navbar() {
       <Link to="/" className="logo">
         Vintage <span>Vault</span>
       </Link>
+      {/* The badge shows how many posters are in the cart */}
       <Link to="/cart" className="vault-link">
         My Vault <span className="badge">{cart.length}</span>
       </Link>

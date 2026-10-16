@@ -5,12 +5,14 @@ import Loader from '../components/Loader';
 import ErrorMessage from '../components/ErrorMessage';
 import CartButton from '../components/CartButton';
 
+// Detail page for one poster
 export default function PosterDetail() {
-  const { id } = useParams(); // the :id part of the URL, e.g. /poster/238
+  const { id } = useParams(); // gets the id from the URL, e.g. /poster/289
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Fetch the movie when the page opens (same ignore trick as in Catalog)
   useEffect(() => {
     let ignore = false;
 
@@ -33,6 +35,7 @@ export default function PosterDetail() {
   if (loading) return <Loader />;
   if (error) return <ErrorMessage message={error} />;
 
+  // Find the director in the crew list, and take the first 4 actors
   const director = movie.credits.crew.find((person) => person.job === 'Director');
   const cast = movie.credits.cast.slice(0, 4).map((actor) => actor.name);
 
@@ -46,6 +49,7 @@ export default function PosterDetail() {
         <h1>
           {movie.title} <span className="year">({getYear(movie.release_date)})</span>
         </h1>
+        {/* Not all movies have a tagline */}
         {movie.tagline && <p className="tagline">"{movie.tagline}"</p>}
         <p>{movie.overview}</p>
 
