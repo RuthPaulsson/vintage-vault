@@ -6,8 +6,12 @@ export default function Navbar() {
 
   return (
     <nav className="navbar">
-      <Link to="/" className="logo">Vintage Vault</Link>
-      <Link to="/cart">My Vault ({cart.length})</Link>
+      <Link to="/" className="logo">
+        Vintage <span>Vault</span>
+      </Link>
+      <Link to="/cart" className="vault-link">
+        My Vault <span className="badge">{cart.length}</span>
+      </Link>
     </nav>
   );
 }

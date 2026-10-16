@@ -1,18 +1,153 @@
+/* ---------- Colours & fonts ---------- */
+:root {
+  --paper: #f2e6d0;
+  --paper-light: #faf3e3;
+  --ink: #2b1d14;
+  --ink-soft: #5c4636;
+  --red: #8b2a1e;
+  --red-dark: #6b1f15;
+  --gold: #c9962b;
+  --line: #d6c3a1;
+
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Lora', Georgia, serif;
+  --font-type: 'Special Elite', 'Courier New', monospace;
+}
+
+/* ---------- Base ---------- */
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: sans-serif;
+  background-color: var(--paper);
+  /* soft vignette that looks like old paper */
+  background-image: radial-gradient(ellipse at center, transparent 50%, rgba(92, 70, 54, 0.15) 100%);
+  background-attachment: fixed;
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  line-height: 1.2;
+}
+
+a {
+  color: var(--red);
 }
 
 main {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 1.5rem;
+  padding: 2rem 1.5rem 4rem;
 }
 
+/* ---------- Buttons ---------- */
+button {
+  font-family: var(--font-type);
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: var(--red);
+  color: var(--paper-light);
+  border: 2px solid var(--red);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+button:hover {
+  background: var(--red-dark);
+  border-color: var(--red-dark);
+}
+
+/* Secondary style: outlined (used for "Remove" buttons) */
+.cart-button.remove,
+.cart-item button {
+  background: transparent;
+  color: var(--red);
+}
+
+.cart-button.remove:hover,
+.cart-item button:hover {
+  background: var(--red);
+  color: var(--paper-light);
+}
+
+/* ---------- Navbar ---------- */
 .navbar {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 1rem 2rem;
+  background: var(--ink);
+  border-bottom: 4px double var(--gold);
+}
+
+.logo {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 1.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--paper);
+  text-decoration: none;
+}
+
+.logo span {
+  color: var(--gold);
+}
+
+.vault-link {
+  font-family: var(--font-type);
+  color: var(--paper);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.vault-link:hover {
+  color: var(--gold);
+}
+
+.badge {
+  background: var(--gold);
+  color: var(--ink);
+  border-radius: 50%;
+  min-width: 1.6rem;
+  height: 1.6rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.hero-eyebrow {
+  font-family: var(--font-type);
+  color: var(--red);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  margin: 0.5rem 0 0;
+  font-style: italic;
+  font-weight: 400;
 }
 
 .search,
@@ -25,22 +160,66 @@ main {
 
 .search input {
   flex: 1;
-  padding: 0.5rem;
+  min-width: 0;
+  padding: 0.6rem 0.8rem;
+  font-family: var(--font-type);
+  font-size: 1rem;
+  background: var(--paper-light);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+}
+
+.search input:focus {
+  outline: 3px solid var(--gold);
+  outline-offset: 1px;
+}
+
+.filters {
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.filters button {
+  background: var(--paper-light);
+  color: var(--ink);
+  border: 2px dashed var(--ink-soft);
+}
+
+.filters button:hover {
+  border-style: solid;
+  background: var(--paper-light);
 }
 
 .filters button.active {
-  font-weight: bold;
+  background: var(--gold);
+  border: 2px solid var(--ink);
+  color: var(--ink);
+}
+
+.results-for {
+  font-family: var(--font-type);
+  text-align: center;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 2rem;
 }
 
 .card {
   display: flex;
   flex-direction: column;
+  background: var(--paper-light);
+  padding: 0.75rem;
+  border: 1px solid var(--line);
+  box-shadow: 4px 4px 0 var(--ink);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--ink);
 }
 
 .card a {
@@ -48,51 +227,124 @@ main {
   text-decoration: none;
 }
 
-.card .cart-button {
-  margin-top: auto; 
+.card h3 {
+  font-size: 1.05rem;
+  margin: 0.75rem 0 0.25rem;
 }
 
-.card img {
+.card p {
+  font-family: var(--font-type);
+  color: var(--ink-soft);
+  margin: 0 0 0.75rem;
+}
+
+.card .cart-button {
+  margin-top: auto;
+}
+
+.card img,
+.detail img {
   width: 100%;
+  display: block;
+  filter: sepia(0.4) contrast(1.05) saturate(0.85);
+  transition: filter 0.3s;
+}
+
+.card:hover img {
+  filter: none;
 }
 
 .detail {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  gap: 2rem;
+  gap: 2.5rem;
+  align-items: start;
 }
 
 .detail .back {
   grid-column: 1 / -1;
+  font-family: var(--font-type);
 }
 
 .detail img {
-  width: 100%;
+  border: 10px solid var(--paper-light);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.detail h1 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  margin-top: 0;
 }
 
 .year {
-  font-weight: normal;
+  font-weight: 400;
+  color: var(--ink-soft);
 }
 
 .tagline {
+  font-family: var(--font-heading);
   font-style: italic;
+  font-size: 1.2rem;
+  color: var(--red);
 }
 
 .facts {
   list-style: none;
-  padding: 0;
-  line-height: 1.8;
+  padding: 1rem 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  line-height: 1.9;
+}
+
+.facts strong {
+  font-family: var(--font-type);
+  font-weight: normal;
+  color: var(--ink-soft);
 }
 
 .price {
-  font-size: 1.5rem;
-  font-weight: bold;
+  display: inline-block;
+  font-family: var(--font-type);
+  font-size: 1.6rem;
+  color: var(--red);
+  border: 3px double var(--red);
+  padding: 0.25rem 1rem;
+  transform: rotate(-3deg);
+  margin-right: 1.5rem;
 }
 
 @media (max-width: 600px) {
   .detail {
     grid-template-columns: 1fr;
   }
+
+  .navbar {
+    padding: 1rem;
+  }
+
+  .logo {
+    font-size: 1.3rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .card {
+    padding: 0.5rem;
+  }
+
+  .card .cart-button {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.5rem;
+  }
+}
+
+.cart h1 {
+  font-size: 2.5rem;
+  border-bottom: 4px double var(--ink);
+  padding-bottom: 0.5rem;
 }
 
 .cart-list {
@@ -104,13 +356,16 @@ main {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid #ccc;
+  padding: 1rem 0;
+  border-bottom: 1px dashed var(--ink-soft);
 }
 
 .cart-item img {
   width: 60px;
   display: block;
+  filter: sepia(0.4);
+  border: 3px solid var(--paper-light);
+  box-shadow: 2px 2px 0 var(--ink);
 }
 
 .cart-item-info {
@@ -119,11 +374,66 @@ main {
   flex-direction: column;
 }
 
+.cart-item-info a {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.cart-item-info span,
+.cart-item-price {
+  font-family: var(--font-type);
+  color: var(--ink-soft);
+}
+
 .cart-total {
+  font-family: var(--font-type);
   font-size: 1.3rem;
   text-align: right;
 }
 
+.cart-total strong {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  color: var(--red);
+}
+
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 0;
+  font-family: var(--font-type);
+  font-size: 1.2rem;
+}
+
+.reel {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 6px solid var(--ink);
+  background:
+    radial-gradient(circle, var(--ink) 0 15%, transparent 16%),
+    radial-gradient(circle at 50% 22%, var(--paper) 0 12%, transparent 13%),
+    radial-gradient(circle at 50% 78%, var(--paper) 0 12%, transparent 13%),
+    radial-gradient(circle at 22% 50%, var(--paper) 0 12%, transparent 13%),
+    radial-gradient(circle at 78% 50%, var(--paper) 0 12%, transparent 13%),
+    var(--ink-soft);
+  animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .error {
-  color: #a63d2a;
+  font-family: var(--font-type);
+  color: var(--red);
+  border: 2px dashed var(--red);
+  padding: 1rem;
+  text-align: center;
 }

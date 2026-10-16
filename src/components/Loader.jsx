@@ -1,3 +1,8 @@
 export default function Loader() {
-  return <p className="loader">Opening the vault…</p>;
+  return (
+    <div className="loader">
+      <span className="reel" aria-hidden="true" />
+      <p>Opening the vault…</p>
+    </div>
+  );
 }

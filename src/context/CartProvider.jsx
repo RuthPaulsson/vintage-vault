@@ -3,7 +3,6 @@ import { CartContext } from './CartContext';
 
 const STORAGE_KEY = 'vintage-vault-cart';
 
-// Reads the saved cart so it survives a page reload
 function loadCart() {
   try {
     return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
@@ -15,13 +14,12 @@ function loadCart() {
 export default function CartProvider({ children }) {
   const [cart, setCart] = useState(loadCart);
 
-  // Save to localStorage every time the cart changes
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
   }, [cart]);
 
   function addToCart(item) {
-    if (isInCart(item.id)) return; // each poster is unique – only one of each
+    if (isInCart(item.id)) return; 
     setCart([...cart, item]);
   }
 

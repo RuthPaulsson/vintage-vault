@@ -68,6 +68,11 @@ export default function Catalog() {
 
   return (
     <section>
+      <header className="hero">
+        <p className="hero-eyebrow">Est. 1920 · Original film posters</p>
+        <h1>Classic cinema, framed forever</h1>
+      </header>
+
       <form onSubmit={handleSearch} className="search">
         <input
           value={input}
@@ -89,7 +94,7 @@ export default function Catalog() {
         ))}
       </div>
 
-      {searchTerm && <p>Results for "{searchTerm}"</p>}
+      {searchTerm && <p className="results-for">Results for "{searchTerm}"</p>}
 
       {loading && <Loader />}
       {error && <ErrorMessage message={error} />}
